@@ -1,0 +1,9 @@
+LD37/Library/
+LD37/Temp/
+LD37/LD37.userprefs
+LD37/obj/
+*.blend1
+*.blend2
+*.userprefs
+*.sln
+*.csproj
