@@ -24,7 +24,7 @@ GameObject:
   - 58: {fileID: 58000010742584092}
   - 50: {fileID: 50000012151119778}
   m_Layer: 0
-  m_Name: Lamp
+  m_Name: Bed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1000012307117372}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.2
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0

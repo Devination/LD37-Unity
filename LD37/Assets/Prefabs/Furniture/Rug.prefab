@@ -24,7 +24,7 @@ GameObject:
   - 50: {fileID: 50000010904808766}
   - 61: {fileID: 61000013522357242}
   m_Layer: 0
-  m_Name: Table
+  m_Name: Rug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,7 +88,7 @@ Rigidbody2D:
   m_GameObject: {fileID: 1000013039848248}
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.2
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_IsKinematic: 0
