@@ -1157,6 +1157,7 @@ GameObject:
   - component: {fileID: 808229986}
   - component: {fileID: 808229988}
   - component: {fileID: 808229987}
+  - component: {fileID: 808229989}
   m_Layer: 5
   m_Name: FurniturePanel
   m_TagString: Untagged
