@@ -36,7 +36,7 @@ public class EndLevel : MonoBehaviour {
 			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => ShowResults();
-			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
 		}
 	}
 
@@ -58,7 +58,7 @@ public class EndLevel : MonoBehaviour {
 			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => ShowBlueprint();
-			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
 		}
 
 		if ( ClientSprite != null ) {

@@ -33,7 +33,7 @@ public class ClientSceneManager : MonoBehaviour {
 			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => UpdateSceneState();
-			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
 		}
 
 		if ( ClientSprite != null ) {

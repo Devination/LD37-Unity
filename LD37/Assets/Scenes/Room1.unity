@@ -341,7 +341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expectedBeds: 1
   expectedRugs: 3
-  score: 0
+  totalScore: 0
+  orientationScore: 0
+  distanceScore: 0
+  objectCountScore: 0
 --- !u!4 &296779647
 Transform:
   m_ObjectHideFlags: 0
@@ -1012,7 +1015,7 @@ GameObject:
   - component: {fileID: 1003812368}
   m_Layer: 0
   m_Name: BedTarget
-  m_TagString: Bed
+  m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1291,7 +1294,7 @@ GameObject:
   - component: {fileID: 1493549394}
   m_Layer: 0
   m_Name: RugTarget
-  m_TagString: Rug
+  m_TagString: Untagged
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1414,7 +1417,37 @@ Prefab:
     - target: {fileID: 114385730027639820, guid: 8f44a898cfc8e0149938da12b0bacb3a,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: -38
+      objectReference: {fileID: 0}
+    - target: {fileID: 224581394276264290, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: -31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f44a898cfc8e0149938da12b0bacb3a, type: 2}
