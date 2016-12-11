@@ -9,11 +9,13 @@ public class Evaluation : MonoBehaviour {
 
 	private string[] clientDialogue;
 	private GameObject dialogueObject;
+	[SerializeField]
+	Animator clientAnim;
 
 	private enum Results {
-		Worst,
 		Intermediate,
 		Best,
+		Worst,
 	};
 	private string[] Distance = {
 		"U-uh... Those things aren't where I wanted them.",
@@ -57,6 +59,7 @@ public class Evaluation : MonoBehaviour {
 	void HandleTotalResults () {
 		int totalScore = PlayerPrefs.GetInt( "Total Score" );
 		int result = GetResult( totalScore );
+		clientAnim.SetTrigger(result);
 		SetHeaderText( "Final Evaluation" );
 		clientDialogue[0] = Overall[result];
 		dialogueObject = GameObject.Find( "ClientDialogue" );
@@ -74,6 +77,7 @@ public class Evaluation : MonoBehaviour {
 		} else {
 			result = GetResult( countScore );
 		}
+		clientAnim.SetTrigger(result);
 		SetHeaderText( "Furniture Count" );
 		clientDialogue[0] = Count[result];
 		dialogueObject = GameObject.Find( "ClientDialogue" );
@@ -85,6 +89,7 @@ public class Evaluation : MonoBehaviour {
 	void HandleOrientationResults() {
 		int orientationScore = PlayerPrefs.GetInt( "Orientation Score" );
 		int result = GetResult( orientationScore );
+		clientAnim.SetTrigger(result);
 		SetHeaderText( "Furniture Orientation" );
 		clientDialogue[0] = Orientation[result];
 		dialogueObject = GameObject.Find( "ClientDialogue" );
@@ -105,6 +110,7 @@ public class Evaluation : MonoBehaviour {
 		clientDialogue = new string[1];
 		int distanceScore = PlayerPrefs.GetInt( "Distance Score" );
 		int result = GetResult( distanceScore );
+		clientAnim.SetTrigger(result);
 		clientDialogue[0] = Distance[result];
 		dialogueObject = GameObject.Find( "ClientDialogue" );
 		Text textComponent = dialogueObject.GetComponent<Text>();

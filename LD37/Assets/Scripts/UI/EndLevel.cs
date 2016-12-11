@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System;
 
 public class EndLevel : MonoBehaviour {
-	public Sprite ClientSprite;
 	public Sprite BlueprintSprite;
 	public TextAsset ClientFirstText;
 	public TextAsset ClientSecondText;
@@ -18,6 +17,8 @@ public class EndLevel : MonoBehaviour {
 	GameObject Blur;
 	[SerializeField]
 	GameObject FinishLevelButton;
+	[SerializeField]
+	Animator clientAnim;
 
 	private string[] clientDialogue;
 	private GameObject dialogueObject;
@@ -59,12 +60,7 @@ public class EndLevel : MonoBehaviour {
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => ShowBlueprint();
 			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
-		}
-
-		if ( ClientSprite != null ) {
-			GameObject client = GameObject.Find( "Client" );
-			Image clientImage = client.GetComponent<Image>();
-			clientImage.sprite = ClientSprite;
+			clientAnim.SetTrigger(0);
 		}
 
 		if ( BlueprintSprite != null ) {

@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ClientSceneManager : MonoBehaviour {
-	public Sprite ClientSprite;
 	public Sprite BlueprintSprite;
 	public TextAsset ClientText;
 
 	[SerializeField] GameObject BlueprintImage;
 	[SerializeField] GameObject ProceedButton;
+	[SerializeField] Animator clientAnim;
 
 	private string[] clientDialogue;
 	private enum ClientSceneState {
@@ -34,14 +34,9 @@ public class ClientSceneManager : MonoBehaviour {
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => UpdateSceneState();
 			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+			clientAnim.SetTrigger(0);
 		}
-
-		if ( ClientSprite != null ) {
-			GameObject client = GameObject.Find( "Client" );
-			Image clientImage = client.GetComponent<Image>();
-			clientImage.sprite = ClientSprite;
-		}
-
+		
 		if ( BlueprintSprite != null ) {
 			GameObject blueprint = GameObject.Find( "Blueprint" );
 			Image blueprintImage = blueprint.GetComponent<Image>();

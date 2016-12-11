@@ -190,11 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a93594268251d5142af51ccde8cdc2cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClientSprite: {fileID: 0}
   BlueprintSprite: {fileID: 0}
   ClientText: {fileID: 0}
   BlueprintImage: {fileID: 0}
   ProceedButton: {fileID: 0}
+  clientAnim: {fileID: 0}
 --- !u!1001 &1981507766
 Prefab:
   m_ObjectHideFlags: 0
