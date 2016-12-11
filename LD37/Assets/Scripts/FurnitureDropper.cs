@@ -6,9 +6,13 @@ public class FurnitureDropper : MonoBehaviour {
 	Rigidbody2D[] furniture;
 	[SerializeField]
 	float speed = 2;
+	[SerializeField]
+	GameObject selectWarningText;
 
+	[HideInInspector]
 	public Rigidbody2D selectedFurniture; //Assigned via FurnitureSelector.cs
 
+	bool canDrop = true;
 	Rigidbody2D body;
 
 	void Start() {
@@ -17,7 +21,7 @@ public class FurnitureDropper : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.anyKeyDown) {
+		if (Input.GetMouseButtonDown(0) && canDrop) {
 			Drop();
 		}
 
@@ -36,12 +40,21 @@ public class FurnitureDropper : MonoBehaviour {
 			selectedFurniture = null;
         }
 		else {
-			//TODO: Should expose this in the on screen UI
-			Debug.Log("Select the furniture you want to drop first!");
-		}
+			selectWarningText.SetActive(true);
+			Invoke("TurnOffWarningText", 2);
+        }
+	}
+
+	void TurnOffWarningText() {
+		selectWarningText.SetActive(false);
 	}
 
 	public void PickFurniture(int index) {
-		selectedFurniture = furniture[index];
+		TurnOffWarningText();
+        selectedFurniture = furniture[index];
+    }
+
+	public void SetDropEnabled(bool value) {
+		canDrop = value;
     }
 }

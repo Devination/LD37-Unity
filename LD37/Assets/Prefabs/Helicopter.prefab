@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011295658928}
+  - 114: {fileID: 114000011059039734}
   - 33: {fileID: 33000012432566342}
   - 23: {fileID: 23000012072523574}
-  - 114: {fileID: 114000011059039734}
   - 50: {fileID: 50000011209660016}
   m_Layer: 0
   m_Name: Helicopter
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010692170802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 4.41, z: 0}
+  m_LocalScale: {x: 1, y: -0.34, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,5 +110,6 @@ MonoBehaviour:
   furniture:
   - {fileID: 50000012151119778, guid: 159e15db2ec6d5547ae32bc13d882a79, type: 2}
   - {fileID: 50000010904808766, guid: 2ceb1d0b0439593418e11cf18dd86d76, type: 2}
-  speed: 2
+  speed: 4
+  selectionWarningText: {fileID: 0}
   selectedFurniture: {fileID: 0}
