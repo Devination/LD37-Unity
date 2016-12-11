@@ -141,7 +141,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1127748, g: 0.07688149, b: 0.13235295, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -195,7 +195,7 @@ MonoBehaviour:
   ClientText: {fileID: 0}
   BlueprintImage: {fileID: 0}
   ProceedButton: {fileID: 0}
---- !u!1001 &1072371470
+--- !u!1001 &1981507766
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -291,6 +291,37 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114275889915120474, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 70d4dfc39246efd40a45737678775e5e,
+        type: 3}
+    - target: {fileID: 114275889915120474, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224239773077877960, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224239773077877960, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.895008
+      objectReference: {fileID: 0}
+    - target: {fileID: 224239773077877960, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 234
+      objectReference: {fileID: 0}
+    - target: {fileID: 224239773077877960, guid: 73b045f3ea5a9784992b8009b4f96977,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 244
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73b045f3ea5a9784992b8009b4f96977, type: 2}
