@@ -26,4 +26,15 @@ public static class UIUtils {
 		}
 		callback();
 	}
+
+	public static string GetTriggerText ( int triggerValue ) {
+		switch( triggerValue ) {
+			case 1:
+				return "happy";
+			case 2:
+				return "sad";
+			default:
+				return "neutral";
+		}
+	}
 }

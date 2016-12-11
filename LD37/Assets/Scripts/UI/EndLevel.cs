@@ -60,7 +60,7 @@ public class EndLevel : MonoBehaviour {
 			Text textComponent = dialogueObject.GetComponent<Text>();
 			Action callback = () => ShowBlueprint();
 			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
-			clientAnim.SetTrigger(0);
+			clientAnim.SetTrigger( UIUtils.GetTriggerText( 0 ) );
 		}
 
 		if ( BlueprintSprite != null ) {
