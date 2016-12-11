@@ -33,10 +33,15 @@ public class FurnitureDropper : MonoBehaviour {
 		if (selectedFurniture != null) {
 			Rigidbody2D obj = (Rigidbody2D)Instantiate(selectedFurniture, transform.position, Quaternion.identity);
 			obj.velocity = body.velocity;
+			selectedFurniture = null;
         }
 		else {
 			//TODO: Should expose this in the on screen UI
 			Debug.Log("Select the furniture you want to drop first!");
 		}
 	}
+
+	public void PickFurniture(int index) {
+		selectedFurniture = furniture[index];
+    }
 }
