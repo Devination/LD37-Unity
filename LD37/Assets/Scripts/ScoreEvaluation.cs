@@ -9,15 +9,16 @@ using System;
 */
 
 public class ScoreEvaluation : MonoBehaviour {
-	public int expectedBeds;
-	public int expectedRugs;
-
 	public int totalScore = 0;
 	public int orientationScore = 0;
 	public int distanceScore = 0;
 	public int objectCountScore = 0;
-	Transform[] targets;
 
+	public string[] furnitureNames;
+	public int[] expectedCounts;
+	GameObject[][] furnitureItems;
+	Transform[] targets;
+	
 	void Start () {
 		targets = GetComponentsInChildren<Transform>();
 		//Invoke("Evaluate", 10); //Debug to test evaluation in 10 secs
@@ -32,18 +33,21 @@ public class ScoreEvaluation : MonoBehaviour {
 
 	public void Evaluate() {
 		//Collect dropped furniture
-		GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
-		GameObject[] rugs = GameObject.FindGameObjectsWithTag("Rug");
-		int bedCountScore = GetCountScore( beds, expectedBeds );
-		int rugCountScore = GetCountScore( rugs, expectedRugs );
-		objectCountScore = ( int )Math.Ceiling( ( float )( ( bedCountScore + rugCountScore ) / 2 ) );
+		int objectCountTotal = 0;
+		furnitureItems = new GameObject[furnitureNames.Length][];
+		Debug.Assert( furnitureNames.Length == expectedCounts.Length );
+		for ( int furnitureIndex = 0; furnitureIndex < furnitureNames.Length; furnitureIndex++ ) {
+			furnitureItems[furnitureIndex] = GameObject.FindGameObjectsWithTag( furnitureNames[furnitureIndex] );
+			int itemScore = GetCountScore( furnitureItems[furnitureIndex], expectedCounts[furnitureIndex] );
+			objectCountTotal += itemScore;
+		}
+		objectCountScore = ( int )Math.Ceiling( ( float )( objectCountTotal / furnitureNames.Length ) );
 
-		foreach (Transform target in targets) {
-			if (target.CompareTag("Bed")) {
-				CalculateDistancesAndOrientation(beds);
-            }
-			else if (target.CompareTag("Rug")) {
-				CalculateDistancesAndOrientation(rugs);
+		foreach ( Transform target in targets ) {
+			for ( int furnitureIndex = 0; furnitureIndex < furnitureNames.Length; furnitureIndex++ ) {
+				if ( target.CompareTag( furnitureNames[furnitureIndex] ) ) {
+					CalculateDistancesAndOrientation( furnitureItems[furnitureIndex] );
+				}
 			}
 		}
 		totalScore = ( int )Math.Ceiling( ( float )( ( objectCountScore + distanceScore + orientationScore ) / 3 ) );

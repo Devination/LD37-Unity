@@ -21,10 +21,10 @@ GameObject:
   - component: {fileID: 4000010229768370}
   - component: {fileID: 50000010904808766}
   - component: {fileID: 212276760168825950}
-  - component: {fileID: 60877117631265230}
+  - component: {fileID: 60789579018779894}
   m_Layer: 0
-  m_Name: Rug
-  m_TagString: Rug
+  m_Name: Lamp
+  m_TagString: Lamp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013039848248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 180.1412, y: -25.569311, z: 0}
+  m_LocalPosition: {x: 179.36383, y: -27.00438, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60877117631265230
+--- !u!60 &60789579018779894
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,11 +76,14 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 1.4824524, y: 0.11319542}
-      - {x: -1.5299683, y: 0.11319733}
-      - {x: -1.865, y: -0.31}
-      - {x: 1.865, y: -0.31}
-      - {x: 1.865, y: -0.26999998}
+    - - {x: 0.14845276, y: 0.288599}
+      - {x: -0.15267944, y: 0.28759575}
+      - {x: -0.22244263, y: -0.02919197}
+      - {x: -0.15316772, y: -0.07291603}
+      - {x: -0.06904602, y: -0.33486557}
+      - {x: 0.09729004, y: -0.33229828}
+      - {x: 0.14596558, y: -0.055404663}
+      - {x: 0.23269653, y: -0.004327774}
 --- !u!212 &212276760168825950
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -112,7 +115,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6179ace2716045f469927a0c2c989e13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af9431f3c40b64440a1a21f3655eb3cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

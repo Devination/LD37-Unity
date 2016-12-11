@@ -19,9 +19,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011044765614}
-  - component: {fileID: 58000010742584092}
   - component: {fileID: 50000012151119778}
   - component: {fileID: 212486389422768938}
+  - component: {fileID: 60996744439964762}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Bed
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012307117372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 180.66269, y: -25.511246, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -62,8 +62,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &58000010742584092
-CircleCollider2D:
+--- !u!60 &60996744439964762
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -74,8 +74,25 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Points:
+    m_Paths:
+    - - {x: 1.03, y: -0.9}
+      - {x: 1.04, y: -0.89}
+      - {x: 1.0414886, y: -0.24486542}
+      - {x: 1.11, y: -0.24}
+      - {x: 1.0500336, y: 0.04710579}
+      - {x: 0.8470459, y: 0.05224228}
+      - {x: 0.6992645, y: 0.34670258}
+      - {x: -0.7309418, y: 0.3329773}
+      - {x: -0.7200012, y: 0.31593132}
+      - {x: -0.8744812, y: -0.020410538}
+      - {x: -1.103836, y: -0.021936417}
+      - {x: -1.0915527, y: -0.2585106}
+      - {x: -1.06, y: -0.9}
+      - {x: -0.8140564, y: -0.8999996}
+      - {x: -0.8122101, y: -0.8114834}
+      - {x: 0.7796173, y: -0.8114815}
+      - {x: 0.78, y: -0.9}
 --- !u!212 &212486389422768938
 SpriteRenderer:
   m_ObjectHideFlags: 1

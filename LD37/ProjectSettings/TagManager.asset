@@ -7,6 +7,9 @@ TagManager:
   - Disabled
   - Bed
   - Rug
+  - Pillow
+  - Dresser
+  - Lamp
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Annoying
   - 
   - 
   - 
