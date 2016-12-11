@@ -339,6 +339,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38acf70d9900834eaf0795f152d8ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expectedBeds: 1
+  expectedRugs: 3
   score: 0
 --- !u!4 &296779647
 Transform:
@@ -1409,6 +1411,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 713769444}
+    - target: {fileID: 114385730027639820, guid: 8f44a898cfc8e0149938da12b0bacb3a,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f44a898cfc8e0149938da12b0bacb3a, type: 2}
   m_IsPrefabParent: 0

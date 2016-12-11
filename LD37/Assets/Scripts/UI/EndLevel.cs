@@ -47,6 +47,8 @@ public class EndLevel : MonoBehaviour {
 
 	// Use this for initialization
 	public void StartEndLevel () {
+		GameObject helicopter = GameObject.Find( "Helicopter" );
+		Destroy( helicopter );
 		GameObject furniturePanel = GameObject.Find( "FurniturePanel" );
 		furniturePanel.SetActive( false );
 		DialogueObjects.SetActive( true );
@@ -70,5 +72,12 @@ public class EndLevel : MonoBehaviour {
 			Image blueprintImage = blueprint.GetComponent<Image>();
 			blueprintImage.sprite = BlueprintSprite;
 		}
+
+		ScoreEvaluation scoreEvaluation = FindObjectOfType<ScoreEvaluation>();
+		scoreEvaluation.Evaluate();
+		PlayerPrefs.SetInt( "Total Score", scoreEvaluation.totalScore );
+		PlayerPrefs.SetInt( "Distance Score", scoreEvaluation.distanceScore );
+		PlayerPrefs.SetInt( "Count Score", scoreEvaluation.objectCountScore );
+		PlayerPrefs.SetInt( "Orientation Score", scoreEvaluation.orientationScore );
 	}
 }
