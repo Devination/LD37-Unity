@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Disabled
+  - Bed
+  - Rug
   layers:
   - Default
   - TransparentFX
