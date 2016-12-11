@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 /* Scoring Rules
 * ?Drop as many objects as you want.
@@ -8,7 +9,13 @@
 */
 
 public class ScoreEvaluation : MonoBehaviour {
-	public int score = 0;
+	public int expectedBeds;
+	public int expectedRugs;
+
+	public int totalScore = 0;
+	public int orientationScore = 0;
+	public int distanceScore = 0;
+	public int objectCountScore = 0;
 	Transform[] targets;
 
 	void Start () {
@@ -16,10 +23,20 @@ public class ScoreEvaluation : MonoBehaviour {
 		//Invoke("Evaluate", 10); //Debug to test evaluation in 10 secs
 	}
 
+	int GetCountScore( GameObject[] objects, int expectedCount ) {
+		Debug.Assert( expectedCount > 0 );
+		float stepValue = 100 / expectedCount;
+		int stepCount = Math.Abs( expectedCount - objects.Length );
+		return ( int )Math.Ceiling( Math.Max( 100 - ( stepValue * stepCount ), 0 ) );
+	}
+
 	public void Evaluate() {
 		//Collect dropped furniture
 		GameObject[] beds = GameObject.FindGameObjectsWithTag("Bed");
 		GameObject[] rugs = GameObject.FindGameObjectsWithTag("Rug");
+		int bedCountScore = GetCountScore( beds, expectedBeds );
+		int rugCountScore = GetCountScore( rugs, expectedRugs );
+		objectCountScore = ( int )Math.Ceiling( ( float )( ( bedCountScore + rugCountScore ) / 2 ) );
 
 		foreach (Transform target in targets) {
 			if (target.CompareTag("Bed")) {
@@ -29,6 +46,7 @@ public class ScoreEvaluation : MonoBehaviour {
 				CalculateDistancesAndOrientation(rugs);
 			}
 		}
+		totalScore = ( int )Math.Ceiling( ( float )( ( objectCountScore + distanceScore + orientationScore ) / 3 ) );
 	}
 
 	void CalculateDistancesAndOrientation(GameObject[] furniture) {
@@ -41,7 +59,7 @@ public class ScoreEvaluation : MonoBehaviour {
 				orientationOffset = Vector2.Dot(obj.transform.up, Vector2.up);
             }
 		}
-		score += (int)(100 * closestDist) + (int)(100 * (1.5 + orientationOffset));
-		Debug.Log(score);
+		distanceScore = ( int )( 100 / closestDist );
+		orientationScore = ( int )( 100 * ( 1.5 + orientationOffset ) );
 	}
 }
