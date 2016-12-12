@@ -20,30 +20,58 @@ public class EndLevel : MonoBehaviour {
 	[SerializeField]
 	Animator clientAnim;
 
-	private string[] clientDialogue;
-	private GameObject dialogueObject;
+	string[] clientDialogue;
+	int currentTextLine;
+	GameObject dialogueObject;
 
-	void ShowResults() {
+	enum EndLevelState {
+		FirstDialogue,
+		SecondDialogue,
+	};
+	EndLevelState currentEndLevelState;
+
+	void ShowResults () {
 		Blur.SetActive( false );
 		DialogueObjects.SetActive( false );
 		FinishLevelButton.SetActive( true );
+	}
+
+	void ShowBlueprint () {
+		DialogueObjects.SetActive( false );
+		BlueprintObjects.SetActive( true );
+	}
+
+	public void ScrollNextTextLine() {
+		Text textComponent = dialogueObject.GetComponent<Text>();
+		if ( textComponent.text != clientDialogue[currentTextLine] ) {
+			textComponent.text = clientDialogue[currentTextLine];
+		}
+		else if ( currentTextLine + 1 >= clientDialogue.Length ) {
+			switch ( currentEndLevelState ) {
+				case EndLevelState.SecondDialogue:
+					ShowResults();
+					break;
+				case EndLevelState.FirstDialogue:
+					ShowBlueprint();
+					break;
+			}
+		}
+		else {
+			currentTextLine++;
+			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue[currentTextLine] ) );
+		}
 	}
 
 	public void SecondDialogue() {
 		BlueprintObjects.SetActive( false );
 		DialogueObjects.SetActive( true );
 		if ( ClientSecondText != null ) {
+			currentTextLine = 0;
+			currentEndLevelState = EndLevelState.SecondDialogue;
 			clientDialogue = ( ClientSecondText.text.Split( '\n' ) );
-			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
-			Action callback = () => ShowResults();
-			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue[currentTextLine] ) );
 		}
-	}
-
-	public void ShowBlueprint () {
-		DialogueObjects.SetActive( false );
-		BlueprintObjects.SetActive( true );
 	}
 
 	// Use this for initialization
@@ -55,11 +83,12 @@ public class EndLevel : MonoBehaviour {
 		DialogueObjects.SetActive( true );
 		Blur.SetActive( true );
 		if ( ClientFirstText != null ) {
+			currentTextLine = 0;
+			currentEndLevelState = EndLevelState.FirstDialogue;
 			clientDialogue = ( ClientFirstText.text.Split( '\n' ) );
 			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
-			Action callback = () => ShowBlueprint();
-			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue[currentTextLine] ) );
 			clientAnim.SetTrigger( UIUtils.GetTriggerText( 0 ) );
 		}
 

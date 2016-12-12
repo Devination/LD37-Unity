@@ -13,6 +13,7 @@ public class ClientSceneManager : MonoBehaviour {
 	[SerializeField] Animator clientAnim;
 
 	private string[] clientDialogue;
+	int currentTextLine;
 	private enum ClientSceneState {
 		Talking,
 		Blueprint,
@@ -21,19 +22,29 @@ public class ClientSceneManager : MonoBehaviour {
 	private ClientSceneState sceneState;
 	private GameObject dialogueObject;
 
-	void UpdateSceneState() {
-		sceneState = ClientSceneState.Blueprint;
+	public void ScrollNextTextLine() {
+		Text textComponent = dialogueObject.GetComponent<Text>();
+		if( textComponent.text != clientDialogue[currentTextLine] ) {
+			textComponent.text = clientDialogue[currentTextLine];
+		}
+		else if ( currentTextLine + 1 >= clientDialogue.Length ) {
+			sceneState = ClientSceneState.Blueprint;
+		}
+		else {
+			currentTextLine++;
+			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue[currentTextLine] ) );
+		}
 	}
 
 	// Use this for initialization
 	void Start () {
 		sceneState = ClientSceneState.Talking;
+		currentTextLine = 0;
 		if ( ClientText != null ) {
 			clientDialogue = ( ClientText.text.Split( '\n' ) );
 			dialogueObject = GameObject.Find( "ClientDialogue" );
 			Text textComponent = dialogueObject.GetComponent<Text>();
-			Action callback = () => UpdateSceneState();
-			StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+			StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue[currentTextLine] ) );
 			clientAnim.SetTrigger( UIUtils.GetTriggerText( 0 ) );
 		}
 		
@@ -47,7 +58,7 @@ public class ClientSceneManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if ( sceneState == ClientSceneState.Blueprint ) {
-			GameObject textBox = GameObject.Find( "TextBox" );
+			GameObject textBox = GameObject.Find( "DialogueBox" );
 			textBox.SetActive( false );
 			BlueprintImage.SetActive( true );
 			ProceedButton.SetActive( true );

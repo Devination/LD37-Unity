@@ -7,10 +7,18 @@ using System;
 public class Evaluation : MonoBehaviour {
 	public Sprite ClientSprite;
 
-	private string[] clientDialogue;
-	private GameObject dialogueObject;
+	GameObject dialogueObject;
 	[SerializeField]
 	Animator clientAnim;
+	string currentText;
+
+	private enum EvaluationState {
+		Distance,
+		Orientation,
+		Count,
+		Overall,
+	};
+	EvaluationState currentEvaluationState;
 
 	private enum Results {
 		Intermediate,
@@ -57,17 +65,18 @@ public class Evaluation : MonoBehaviour {
 	}
 
 	void HandleTotalResults () {
+		currentEvaluationState = EvaluationState.Overall;
 		int totalScore = PlayerPrefs.GetInt( "Total Score" );
 		int result = GetResult( totalScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Final Evaluation" );
-		clientDialogue[0] = Overall[result];
-		dialogueObject = GameObject.Find( "ClientDialogue" );
+		currentText = Overall[result];
 		Text textComponent = dialogueObject.GetComponent<Text>();
-		StartCoroutine( UIUtils.ScrollText( textComponent, clientDialogue ) );
+		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
 
 	void HandleCountResults() {
+		currentEvaluationState = EvaluationState.Count;
 		int countScore = PlayerPrefs.GetInt( "Count Score" );
 		int result;
 		if ( countScore >= 100 ) {
@@ -79,23 +88,42 @@ public class Evaluation : MonoBehaviour {
 		}
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Count" );
-		clientDialogue[0] = Count[result];
-		dialogueObject = GameObject.Find( "ClientDialogue" );
+		currentText = Count[result];
 		Text textComponent = dialogueObject.GetComponent<Text>();
-		Action callback = () => HandleTotalResults();
-		StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
 
 	void HandleOrientationResults() {
+		currentEvaluationState = EvaluationState.Orientation;
 		int orientationScore = PlayerPrefs.GetInt( "Orientation Score" );
 		int result = GetResult( orientationScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Orientation" );
-		clientDialogue[0] = Orientation[result];
-		dialogueObject = GameObject.Find( "ClientDialogue" );
+		currentText = Orientation[result];
 		Text textComponent = dialogueObject.GetComponent<Text>();
-		Action callback = () => HandleCountResults();
-		StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
+	}
+
+	public void ScrollNextTextLine () {
+		Text textComponent = dialogueObject.GetComponent<Text>();
+		if ( textComponent.text == currentText ) {
+			switch ( currentEvaluationState ) {
+				case EvaluationState.Distance:
+					HandleOrientationResults();
+					break;
+				case EvaluationState.Orientation:
+					HandleCountResults();
+					break;
+				case EvaluationState.Count:
+					HandleTotalResults();
+					break;
+				default:
+					break;
+			}
+		}
+		else {
+			textComponent.text = currentText;
+		}
 	}
 
 	// Use this for initialization
@@ -106,15 +134,13 @@ public class Evaluation : MonoBehaviour {
 			clientImage.sprite = ClientSprite;
 		}
 
-		// HACK: Size 1 because the dialogue function takes a string array.
-		clientDialogue = new string[1];
+		currentEvaluationState = EvaluationState.Distance;
 		int distanceScore = PlayerPrefs.GetInt( "Distance Score" );
 		int result = GetResult( distanceScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
-		clientDialogue[0] = Distance[result];
 		dialogueObject = GameObject.Find( "ClientDialogue" );
+		currentText = Distance[result];
 		Text textComponent = dialogueObject.GetComponent<Text>();
-		Action callback = () => HandleOrientationResults();
-		StartCoroutine( UIUtils.ScrollTextWithCallback( textComponent, clientDialogue, callback ) );
+		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
 }
