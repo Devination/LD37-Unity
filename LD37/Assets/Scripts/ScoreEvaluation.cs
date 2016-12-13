@@ -55,6 +55,7 @@ public class ScoreEvaluation : MonoBehaviour {
 			}
 		}
 		distanceScore = distanceScore / numFurnitureCalculated;
+		orientationScore /= numFurnitureCalculated;
 		totalScore = ( int )Math.Ceiling( ( float )( ( objectCountScore + distanceScore + orientationScore ) / 3 ) );
 	}
 
@@ -74,6 +75,6 @@ public class ScoreEvaluation : MonoBehaviour {
 		// HACK: Assuming 0.3 is the perfect score, add 0.7 to closestDist before calculating.
 		closestDist += 0.7f;
 		distanceScore += Math.Min( 100, ( int )( 100 / closestDist ) );
-		orientationScore = ( int )( 100 * ( 1.5 + orientationOffset ) );
+		orientationScore += Math.Min( 100, ( int )( 50 * ( 1.1 + orientationOffset ) ) );
 	}
 }

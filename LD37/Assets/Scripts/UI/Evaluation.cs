@@ -58,6 +58,34 @@ public class Evaluation : MonoBehaviour {
 		return ( int )Result;
 	}
 
+	int GetResultOrientation ( int score ) {
+		Results Result;
+		if ( score <= 60 ) {
+			Result = Results.Worst;
+		}
+		else if ( score <= 85 ) {
+			Result = Results.Intermediate;
+		}
+		else {
+			Result = Results.Best;
+		}
+		return ( int )Result;
+	}
+
+	int GetResultCount ( int score ) {
+		Results Result;
+		if ( score >= 100 ) {
+			Result = Results.Best;
+		}
+		else if ( score >= 60 ) {
+			Result = Results.Intermediate;
+		}
+		else {
+			Result = Results.Worst;
+		}
+		return ( int )Result;
+	}
+
 	void SetHeaderText ( string newText ) {
 		GameObject header = GameObject.Find( "Header" );
 		Text headerText = header.GetComponent<Text>();
@@ -78,14 +106,7 @@ public class Evaluation : MonoBehaviour {
 	void HandleCountResults() {
 		currentEvaluationState = EvaluationState.Count;
 		int countScore = PlayerPrefs.GetInt( "Count Score" );
-		int result;
-		if ( countScore >= 100 ) {
-			result = ( int )Results.Best;
-		} else if ( countScore >= 90 ) {
-			result = ( int )Results.Intermediate;
-		} else {
-			result = GetResult( countScore );
-		}
+		int result = GetResultCount( countScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Count" );
 		currentText = Count[result];
@@ -96,7 +117,7 @@ public class Evaluation : MonoBehaviour {
 	void HandleOrientationResults() {
 		currentEvaluationState = EvaluationState.Orientation;
 		int orientationScore = PlayerPrefs.GetInt( "Orientation Score" );
-		int result = GetResult( orientationScore );
+		int result = GetResultOrientation( orientationScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Orientation" );
 		currentText = Orientation[result];
