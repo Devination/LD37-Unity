@@ -43,27 +43,33 @@ public class ScoreEvaluation : MonoBehaviour {
 		}
 		objectCountScore = ( int )Math.Ceiling( ( float )( objectCountTotal / furnitureNames.Length ) );
 
+		int numFurnitureCalculated = 0;
 		foreach ( Transform target in targets ) {
 			for ( int furnitureIndex = 0; furnitureIndex < furnitureNames.Length; furnitureIndex++ ) {
 				if ( target.CompareTag( furnitureNames[furnitureIndex] ) ) {
-					CalculateDistancesAndOrientation( furnitureItems[furnitureIndex] );
+					numFurnitureCalculated += 1;
+					CalculateDistancesAndOrientation( target, furnitureItems[furnitureIndex] );
 				}
 			}
 		}
+		distanceScore = distanceScore / numFurnitureCalculated;
 		totalScore = ( int )Math.Ceiling( ( float )( ( objectCountScore + distanceScore + orientationScore ) / 3 ) );
 	}
 
-	void CalculateDistancesAndOrientation(GameObject[] furniture) {
+	void CalculateDistancesAndOrientation( Transform target, GameObject[] furniture ) {
 		float orientationOffset = -1; //1 = upright, 0 = sideways, -1 = upsidedown
 		float closestDist = 4096;
-		foreach (GameObject obj in furniture) {
-			float dist = Vector2.Distance(obj.transform.position, transform.position);
-			if (dist < closestDist) {
+		foreach ( GameObject obj in furniture ) {
+			if ( obj.name.IndexOf( "Target" ) != -1 ) {
+				continue;
+			}
+			float dist = Vector2.Distance( obj.transform.position, target.position );
+			if ( dist < closestDist ) {
 				closestDist = dist;
-				orientationOffset = Vector2.Dot(obj.transform.up, Vector2.up);
+				orientationOffset = Vector2.Dot( obj.transform.up, Vector2.up );
             }
 		}
-		distanceScore = ( int )( 100 / closestDist );
+		distanceScore += Math.Min( 100, ( int )( 100 / closestDist ) );
 		orientationScore = ( int )( 100 * ( 1.5 + orientationOffset ) );
 	}
 }
