@@ -27,7 +27,9 @@ public class ScoreEvaluation : MonoBehaviour {
 	int GetCountScore( GameObject[] objects, int expectedCount ) {
 		Debug.Assert( expectedCount > 0 );
 		float stepValue = 100 / expectedCount;
-		int stepCount = Math.Abs( expectedCount - objects.Length );
+		// The targets have the same tag as the game objects, subtract the expectedCount to figure out our actual count.
+		int objectCount = objects.Length - expectedCount;
+		int stepCount = Math.Abs( expectedCount - objectCount );
 		return ( int )Math.Ceiling( Math.Max( 100 - ( stepValue * stepCount ), 0 ) );
 	}
 
@@ -69,6 +71,8 @@ public class ScoreEvaluation : MonoBehaviour {
 				orientationOffset = Vector2.Dot( obj.transform.up, Vector2.up );
             }
 		}
+		// HACK: Assuming 0.3 is the perfect score, add 0.7 to closestDist before calculating.
+		closestDist += 0.7f;
 		distanceScore += Math.Min( 100, ( int )( 100 / closestDist ) );
 		orientationScore = ( int )( 100 * ( 1.5 + orientationOffset ) );
 	}
