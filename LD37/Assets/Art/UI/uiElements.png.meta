@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: 70d4dfc39246efd40a45737678775e5e
-timeCreated: 1481438334
+timeCreated: 1481610394
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: uiElements_0
     21300002: uiElements_1
+    21300004: uiElements_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -111,6 +112,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 11, y: 13, z: 14, w: 13}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: uiElements_2
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 244
+        width: 87
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 11, y: 13, z: 13, w: 11}
       outline: []
       tessellationDetail: 0
     outline: []
