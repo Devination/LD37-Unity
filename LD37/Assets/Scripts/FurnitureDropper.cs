@@ -14,6 +14,7 @@ public class FurnitureDropper : MonoBehaviour {
 
 	bool canDrop = true;
 	Rigidbody2D body;
+	int itemsDropped = 0;
 
 	void Start() {
 		body = GetComponent<Rigidbody2D>();
@@ -38,6 +39,8 @@ public class FurnitureDropper : MonoBehaviour {
 			Rigidbody2D obj = (Rigidbody2D)Instantiate(selectedFurniture, transform.position, Quaternion.identity);
 			obj.velocity = body.velocity;
 			selectedFurniture = null;
+			obj.GetComponent<SpriteRenderer>().sortingOrder = itemsDropped;
+			itemsDropped++;
         }
 		else {
 			selectWarningText.SetActive(true);
