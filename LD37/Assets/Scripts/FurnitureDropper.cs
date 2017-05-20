@@ -9,6 +9,7 @@ public class FurnitureDropper : MonoBehaviour {
 	[SerializeField]
 	GameObject selectWarningText;
 
+	int selectedIndex = -1;
 	HingeJoint2D hinge;
 	Rigidbody2D selectedFurniture;
 
@@ -42,6 +43,7 @@ public class FurnitureDropper : MonoBehaviour {
 			itemsDropped++;
 			hinge.connectedBody = null;
 			selectedFurniture = null;
+			selectedIndex = -1;
 		}
 		else {
 			selectWarningText.SetActive(true);
@@ -56,9 +58,13 @@ public class FurnitureDropper : MonoBehaviour {
 	//Called via Canvas Buttons, not .cs scripts
 	public void PickFurniture(int index) {
 		TurnOffWarningText();
+		if (selectedIndex == index) {
+			return;
+		}
 		if (selectedFurniture != null) {
 			Destroy(selectedFurniture.gameObject);
 		}
+		selectedIndex = index;
 		Vector2 pos = transform.position;
 		pos.y -= 1;
 		selectedFurniture = (Rigidbody2D)Instantiate(furniture[index], pos, Quaternion.identity);
