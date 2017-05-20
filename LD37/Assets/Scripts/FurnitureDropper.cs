@@ -22,7 +22,7 @@ public class FurnitureDropper : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetMouseButtonDown(0) && canDrop) {
+		if ( ( Input.GetMouseButtonDown(0) || Input.GetButtonDown( "Fire1" ) ) && canDrop) {
 			Drop();
 		}
 
