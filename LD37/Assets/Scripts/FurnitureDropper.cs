@@ -12,6 +12,7 @@ public class FurnitureDropper : MonoBehaviour {
 	int selectedIndex = -1;
 	HingeJoint2D hinge;
 	Rigidbody2D selectedFurniture;
+	LineRenderer[] ropes;
 
 	bool canDrop = true;
 	Rigidbody2D body;
@@ -21,6 +22,7 @@ public class FurnitureDropper : MonoBehaviour {
 		body = GetComponent<Rigidbody2D>();
 		hinge = GetComponent<HingeJoint2D>();
 		body.velocity = Vector2.left * speed;
+		ropes = GetComponentsInChildren<LineRenderer>();
 	}
 
 	void Update() {
@@ -55,6 +57,24 @@ public class FurnitureDropper : MonoBehaviour {
 		selectWarningText.SetActive(false);
 	}
 
+	void DetachRopes() {
+		for (int i = 0; i < ropes.Length; ++i) {
+			ropes[i].SetPosition(1, Vector3.zero);
+		}
+	}
+
+	IEnumerator AttachRopes(Transform parent) {
+		DetachRopes();
+		yield return new WaitForSeconds(0.1f);
+		while (selectedIndex > -1) {
+			for (int i=0; i < ropes.Length && i < parent.childCount; ++i) {
+				ropes[i].SetPosition(1, parent.GetChild(i).position - transform.position);
+			}
+			yield return new WaitForEndOfFrame();
+		}
+		DetachRopes();
+	}
+
 	//Called via Canvas Buttons, not .cs scripts
 	public void PickFurniture(int index) {
 		TurnOffWarningText();
@@ -62,6 +82,7 @@ public class FurnitureDropper : MonoBehaviour {
 			return;
 		}
 		if (selectedFurniture != null) {
+			StopAllCoroutines();
 			Destroy(selectedFurniture.gameObject);
 		}
 		selectedIndex = index;
@@ -69,6 +90,7 @@ public class FurnitureDropper : MonoBehaviour {
 		pos.y -= 1;
 		selectedFurniture = (Rigidbody2D)Instantiate(furniture[index], pos, Quaternion.identity);
 		hinge.connectedBody = selectedFurniture;
+		StartCoroutine(AttachRopes(selectedFurniture.transform));
 	}
 
 	public void SetDropEnabled(bool value) {
