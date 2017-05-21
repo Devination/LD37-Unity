@@ -8,6 +8,7 @@ public class FurnitureDropper : MonoBehaviour {
 	float speed = 2;
 	[SerializeField]
 	GameObject selectWarningText;
+	SpriteRenderer art;
 
 	int selectedIndex = -1;
 	HingeJoint2D hinge;
@@ -21,6 +22,7 @@ public class FurnitureDropper : MonoBehaviour {
 	void Start() {
 		body = GetComponent<Rigidbody2D>();
 		hinge = GetComponent<HingeJoint2D>();
+		art = GetComponentInChildren<SpriteRenderer>();
 		body.velocity = Vector2.left * speed;
 		ropes = GetComponentsInChildren<LineRenderer>();
 	}
@@ -35,6 +37,7 @@ public class FurnitureDropper : MonoBehaviour {
 		if ((posOnScreen < 0 && body.velocity.x < 0) //On the left and moving left
 			|| (posOnScreen > Screen.width && body.velocity.x > 0)) { //On the right and moving right
 			body.velocity *= -1; //Reverse direction
+			art.flipX = !art.flipX;
 		}
 	}
 
