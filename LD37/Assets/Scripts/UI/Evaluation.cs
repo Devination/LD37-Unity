@@ -20,68 +20,63 @@ public class Evaluation : MonoBehaviour {
 	};
 	EvaluationState currentEvaluationState;
 
-	private enum Results {
-		Intermediate,
-		Best,
-		Worst,
-	};
 	private string[] Distance = {
+		"U-uh... Those things aren't where I wanted them.",
 		"They're c-close! Good job.",
 		"Amazing! You dropped that stuff right where I needed it. I see why you're the pro.",
-		"U-uh... Those things aren't where I wanted them.",
 	};
 	private string[] Orientation = {
+		"Hmm, I don't think everything is the right way up.",
 		"I think this will do.",
 		"Woah, everything is so straight!",
-		"Hmm, I don't think everything is the right way up.",
 	};
 	private string[] Count = {
+		"M-math is hard I guess.",
 		"This is almost exactly what I needed!",
 		"Uwaaaa, all my items are here!",
-		"M-math is hard I guess.",
 	};
 	private string[] Overall = {
+		"TERRIBLE: M-maybe you can try a bit harder next time.",
 		"OK: Thank you for your hard work.",
 		"GREAT: You've blown me away! Are we best friends now?",
-		"TERRIBLE: M-maybe you can try a bit harder next time.",
 	};
 
 	int GetResult ( int score ) {
-		Results Result;
+		SaveGame.Results Result;
 		if ( score <= 60 ) {
-			Result = Results.Worst;
+			Result = SaveGame.Results.WORST;
 		} else if ( score <= 90 ) {
-			Result = Results.Intermediate;
+			Result = SaveGame.Results.INTERMEDIATE;
 		} else {
-			Result = Results.Best;
+			Result = SaveGame.Results.BEST;
 		}
 		return ( int )Result;
 	}
 
 	int GetResultOrientation ( int score ) {
-		Results Result;
+		SaveGame.Results Result;
 		if ( score <= 60 ) {
-			Result = Results.Worst;
+			Result = SaveGame.Results.WORST;
 		}
 		else if ( score <= 85 ) {
-			Result = Results.Intermediate;
+			Result = SaveGame.Results.INTERMEDIATE;
 		}
 		else {
-			Result = Results.Best;
+			Result = SaveGame.Results.BEST;
 		}
 		return ( int )Result;
 	}
 
 	int GetResultCount ( int score ) {
-		Results Result;
+		SaveGame.Results Result;
 		if ( score >= 100 ) {
-			Result = Results.Best;
+			Result = SaveGame.Results.BEST;
 		}
 		else if ( score >= 60 ) {
-			Result = Results.Intermediate;
+			Result = SaveGame.Results.INTERMEDIATE;
 		}
 		else {
-			Result = Results.Worst;
+			Result = SaveGame.Results.WORST;
 		}
 		return ( int )Result;
 	}
@@ -92,13 +87,18 @@ public class Evaluation : MonoBehaviour {
 		headerText.text = newText;
 	}
 
+	void FinishLevel () {
+		SaveGame.CurrentSaveGame.TerryResults = GetResult( PlayerPrefs.GetInt( "Total Score" ) );
+		SaveUtils.Save();
+	}
+
 	void HandleTotalResults () {
 		currentEvaluationState = EvaluationState.Overall;
 		int totalScore = PlayerPrefs.GetInt( "Total Score" );
 		int result = GetResult( totalScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Final Evaluation" );
-		currentText = Overall[result];
+		currentText = Overall[result - 1];
 		Text textComponent = dialogueObject.GetComponent<Text>();
 		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
@@ -109,7 +109,7 @@ public class Evaluation : MonoBehaviour {
 		int result = GetResultCount( countScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Count" );
-		currentText = Count[result];
+		currentText = Count[result - 1];
 		Text textComponent = dialogueObject.GetComponent<Text>();
 		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
@@ -120,7 +120,7 @@ public class Evaluation : MonoBehaviour {
 		int result = GetResultOrientation( orientationScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		SetHeaderText( "Furniture Orientation" );
-		currentText = Orientation[result];
+		currentText = Orientation[result - 1];
 		Text textComponent = dialogueObject.GetComponent<Text>();
 		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}
@@ -137,6 +137,9 @@ public class Evaluation : MonoBehaviour {
 					break;
 				case EvaluationState.Count:
 					HandleTotalResults();
+					break;
+				case EvaluationState.Overall:
+					FinishLevel();
 					break;
 				default:
 					break;
@@ -160,7 +163,7 @@ public class Evaluation : MonoBehaviour {
 		int result = GetResult( distanceScore );
 		clientAnim.SetTrigger( UIUtils.GetTriggerText( result ) );
 		dialogueObject = GameObject.Find( "ClientDialogue" );
-		currentText = Distance[result];
+		currentText = Distance[result - 1];
 		Text textComponent = dialogueObject.GetComponent<Text>();
 		StartCoroutine( UIUtils.ScrollText( textComponent, currentText ) );
 	}

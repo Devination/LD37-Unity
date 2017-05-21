@@ -27,9 +27,9 @@ public static class UIUtils {
 
 	public static string GetTriggerText ( int triggerValue ) {
 		switch( triggerValue ) {
-			case 1:
+			case (int)SaveGame.Results.BEST:
 				return "happy";
-			case 2:
+			case (int)SaveGame.Results.WORST:
 				return "sad";
 			default:
 				return "neutral";
