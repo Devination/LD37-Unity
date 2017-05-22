@@ -49,8 +49,7 @@ public class ClientSceneManager : MonoBehaviour {
 		}
 		
 		if ( BlueprintSprite != null ) {
-			GameObject blueprint = GameObject.Find( "Blueprint" );
-			Image blueprintImage = blueprint.GetComponent<Image>();
+			Image blueprintImage = BlueprintImage.GetComponent<Image>();
 			blueprintImage.sprite = BlueprintSprite;
 		}
 	}
@@ -60,7 +59,8 @@ public class ClientSceneManager : MonoBehaviour {
 		if ( sceneState == ClientSceneState.Blueprint ) {
 			GameObject textBox = GameObject.Find( "DialogueBox" );
 			textBox.SetActive( false );
-			BlueprintImage.SetActive( true );
+			Image image = BlueprintImage.GetComponent<Image>();
+			image.color = Color.white;
 			ProceedButton.SetActive( true );
 			sceneState = ClientSceneState.Done;
 		}
